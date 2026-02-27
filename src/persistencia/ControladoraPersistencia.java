@@ -1,0 +1,20 @@
+package persistencia;
+
+import logica.Duenio;
+import logica.Mascota;
+
+public class ControladoraPersistencia {
+	
+	DuenioJpaController duenioJpa = new DuenioJpaController();
+	MascotaJpaController mascoJpa = new MascotaJpaController();
+	
+	public void guardar(Duenio duenio, Mascota masco) { //Aca adentro usamos los metodos del JpaController
+		
+		duenioJpa.create(duenio); //Crear el Duenio en la BDD
+		mascoJpa.create(masco); //Crear la Mascota en la BDD
+		
+	}
+	
+	
+	
+}

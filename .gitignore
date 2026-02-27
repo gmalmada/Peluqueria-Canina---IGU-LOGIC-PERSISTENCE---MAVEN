@@ -1,0 +1,11 @@
+# Carpetas de compilacion de Maven y Eclipse
+target/
+bin/
+
+# Configuraciones locales de Eclipse
+.settings/
+.project
+.classpath
+
+# Archivos compilados sueltos (por si acaso)
+*.class
