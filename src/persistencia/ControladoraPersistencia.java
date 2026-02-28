@@ -20,6 +20,15 @@ public class ControladoraPersistencia {
 		mascoJpa.create(masco); //Crear la Mascota en la BDD
 		
 	}
+
+	public void borrarMascota(int numCliente) {
+		try {
+			mascoJpa.destroy(numCliente);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	
 	

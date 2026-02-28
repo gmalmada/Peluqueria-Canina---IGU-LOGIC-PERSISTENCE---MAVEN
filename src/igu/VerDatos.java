@@ -11,15 +11,21 @@ import logica.Controladora;
 import logica.Mascota;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.EtchedBorder;
 
 public class VerDatos extends JFrame {
 
@@ -62,6 +68,7 @@ public class VerDatos extends JFrame {
 		panel.add(lblVisualizacinDeDatos);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_1.setBounds(44, 67, 773, 577);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
@@ -84,10 +91,51 @@ public class VerDatos extends JFrame {
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(tablaMascotas.getRowCount() > 0) {//Controlar que la lista no este vacia (Si es mayor a 0 es porque hay filas y no esta vacia)
+					if(tablaMascotas.getSelectedRow() != -1) { //Controlar si eligio una fila (-1 significa nada seleccionado)
+						int numCliente = Integer.parseInt(String.valueOf(tablaMascotas.getValueAt(tablaMascotas.getSelectedRow(), 0))); //Explicacion abajo
+						//Traer y asignar en num de cliente el valor de la tabla mascotas que este en la columna 0 de la fila seleccionada 
+						
+						//Borrar mascota
+						control.borrarMascota(numCliente);
+						
+						//Aviso de borrado exitoso (Uso metodo mostrarMensaje creado abajo)
+						mostrarMensaje("Mascota eliminada exitosamente.", "Info", "Borrado de mascota");
+						cargarTabla(); //Mostrar la tabla actualizada
+					}else {
+						mostrarMensaje("No seleccionó ninguna mascota", "Error", "Error al eliminar");
+					}
+				}else {
+					mostrarMensaje("No hay nada en la tabla", "Error", "Error al eliminar");
+				}
+			}
+		});
+		
+		
+		
 		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnEliminar.setBounds(600, 49, 135, 72);
 		panel_1.add(btnEliminar);
 
+	}
+	
+	public void mostrarMensaje(String mensaje, String tipo, String titulo) {
+		JOptionPane optionPane = new JOptionPane(mensaje);
+		if(tipo.equals("Info")) { //Elegimos distintos tipos de error
+		optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+		}
+		else {
+			if(tipo.equals("Error")) {
+				optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		JDialog dialog = optionPane.createDialog(titulo);
+		dialog.setAlwaysOnTop(true);
+		dialog.setVisible(true);
+		
 	}
 
 	protected void cargarTabla() {

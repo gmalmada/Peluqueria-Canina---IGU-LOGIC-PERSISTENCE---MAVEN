@@ -33,6 +33,11 @@ public class Controladora { //Se encarga de llamar a la persistencia, que conect
 		return controlPersis.traerMascotas();
 	}
 
+	public void borrarMascota(int numCliente) {
+		
+		controlPersis.borrarMascota(numCliente);
+	}
+
 	
 
 	

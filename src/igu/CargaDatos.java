@@ -21,6 +21,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.EtchedBorder;
 
 public class CargaDatos extends JFrame {
 
@@ -45,14 +46,15 @@ public class CargaDatos extends JFrame {
 	
 	public CargaDatos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 851, 526);
+		setBounds(100, 100, 851, 549);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 835, 487);
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBounds(10, 11, 815, 488);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
