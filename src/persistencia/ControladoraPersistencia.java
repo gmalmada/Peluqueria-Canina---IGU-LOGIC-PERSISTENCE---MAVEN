@@ -1,5 +1,7 @@
 package persistencia;
 
+import java.util.List;
+
 import logica.Duenio;
 import logica.Mascota;
 
@@ -7,6 +9,10 @@ public class ControladoraPersistencia {
 	
 	DuenioJpaController duenioJpa = new DuenioJpaController();
 	MascotaJpaController mascoJpa = new MascotaJpaController();
+	
+	public List<Mascota> traerMascotas(){
+		return mascoJpa.findMascotaEntities();
+	}
 	
 	public void guardar(Duenio duenio, Mascota masco) { //Aca adentro usamos los metodos del JpaController
 		

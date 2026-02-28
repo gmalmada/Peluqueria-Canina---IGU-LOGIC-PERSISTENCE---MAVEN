@@ -1,8 +1,9 @@
 package logica;
 
+
 import persistencia.ControladoraPersistencia;
 
-public class Controladora {
+public class Controladora { //Se encarga de llamar a la persistencia, que conecta con la BDD
 	
 	ControladoraPersistencia controlPersis = new ControladoraPersistencia();
 
@@ -26,6 +27,13 @@ public class Controladora {
 		
 		controlPersis.guardar(duenio, masco);
 	}
+
+	public java.util.List<Mascota> traerMascotas() {
+		
+		return controlPersis.traerMascotas();
+	}
+
+	
 
 	
 	

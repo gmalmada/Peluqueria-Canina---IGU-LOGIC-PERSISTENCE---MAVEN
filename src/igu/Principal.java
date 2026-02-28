@@ -49,22 +49,29 @@ public class Principal extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Cargar datos");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnCargaDatos = new JButton("Cargar datos");
+		btnCargaDatos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) { //Conexion entre Principal y Car
 				CargaDatos pantalla = new CargaDatos();//Nueva funcion del boton
 				pantalla.setVisible(true); //Hacer visible la interfaz
 				pantalla.setLocationRelativeTo(null); //Hacer que aparezca en medio de la pantalla
 			}
 		});
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton.setBounds(22, 24, 247, 58);
-		panel_1.add(btnNewButton);
+		btnCargaDatos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnCargaDatos.setBounds(22, 24, 247, 58);
+		panel_1.add(btnCargaDatos);
 		
-		JButton btnNewButton_1 = new JButton("Ver datos");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnNewButton_1.setBounds(22, 116, 247, 58);
-		panel_1.add(btnNewButton_1);
+		JButton btnVerDatos = new JButton("Ver datos");
+		btnVerDatos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VerDatos pantalla = new VerDatos();//Nueva funcion del boton
+				pantalla.setVisible(true); //Hacer visible la interfaz
+				pantalla.setLocationRelativeTo(null); //Hacer que aparezca en medio de la pantalla
+			}
+		});
+		btnVerDatos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnVerDatos.setBounds(22, 116, 247, 58);
+		panel_1.add(btnVerDatos);
 		
 		JButton btnSalir = new JButton("Salir");
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 20));
