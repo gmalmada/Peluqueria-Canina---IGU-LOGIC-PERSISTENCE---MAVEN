@@ -38,6 +38,15 @@ public class Controladora { //Se encarga de llamar a la persistencia, que conect
 		controlPersis.borrarMascota(numCliente);
 	}
 
+	public Mascota traerMascota(int numCli) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
+	
+
 	
 
 	

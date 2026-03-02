@@ -1,30 +1,29 @@
 package igu;
 
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import logica.Controladora;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JTextField;
-import javax.swing.JTextArea;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
-import java.awt.Color;
 
-public class CargaDatos extends JFrame {
+import logica.Controladora;
+import logica.Mascota;
+
+public class ModificarDatos extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -44,8 +43,14 @@ public class CargaDatos extends JFrame {
 	 */
 	
 	Controladora control = new Controladora();
+	int numCliente;
 	
-	public CargaDatos() {
+	public ModificarDatos(int numCliente) {
+		
+		this.numCliente = numCliente;
+		
+		cargarDatos(numCliente);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 851, 549);
 		contentPane = new JPanel();
@@ -59,13 +64,13 @@ public class CargaDatos extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblCargaDeDatos = new JLabel("Carga de datos");
+		JLabel lblCargaDeDatos = new JLabel("Modificación de datos");
 		lblCargaDeDatos.setBounds(324, 11, 167, 31);
 		lblCargaDeDatos.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		panel.add(lblCargaDeDatos);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(CargaDatos.class.getResource("/imagenes/WhatsApp Image 2026-01-08 at 00.52.35.jpeg")));
+		lblNewLabel.setIcon(new ImageIcon(ModificarDatos.class.getResource("/imagenes/WhatsApp Image 2026-01-08 at 00.52.35.jpeg")));
 		lblNewLabel.setBounds(525, 56, 224, 237);
 		panel.add(lblNewLabel);
 		
@@ -159,7 +164,7 @@ public class CargaDatos extends JFrame {
 		btnLimpiar.setBounds(578, 331, 124, 41);
 		panel.add(btnLimpiar);
 		
-		JButton btnGuardar = new JButton("Guardar");
+		JButton btnGuardar = new JButton("Guardar cambios");
 		btnGuardar.setBackground(new Color(255, 255, 255));
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -182,11 +187,24 @@ public class CargaDatos extends JFrame {
 				dialog.setAlwaysOnTop(true);
 				dialog.setVisible(true);
 				
-			}
+			} 
 		});
 		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnGuardar.setBounds(578, 406, 124, 41);
+		btnGuardar.setBounds(525, 405, 224, 41);
 		panel.add(btnGuardar);
 
 	}
+
+	private void cargarDatos(int numCliente2) {
+		Mascota masco = control.traerMascota(numCliente2);
+		
+		txtNombre.setText(masco.getNombreMascota());
+		txtRaza.setText(masco.getRaza());
+		txtColor.setText(masco.getColor());
+		txtNomDuenio.setText(masco.getUnDuenio().getNombre());
+		txtCelDuenio.setText(masco.getUnDuenio().getCelDuenio());
+		txtObservaciones
+		
+	}
+
 }

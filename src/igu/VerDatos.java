@@ -69,12 +69,12 @@ public class VerDatos extends JFrame {
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel_1.setBounds(44, 67, 773, 577);
+		panel_1.setBounds(44, 67, 980, 577);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 52, 590, 486);
+		scrollPane.setBounds(10, 53, 803, 513);
 		panel_1.add(scrollPane);
 		
 		tablaMascotas = new JTable();
@@ -82,15 +82,38 @@ public class VerDatos extends JFrame {
 		
 		JLabel lblDatosDeMascotas = new JLabel("Datos de mascotas");
 		lblDatosDeMascotas.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		lblDatosDeMascotas.setBounds(0, 21, 209, 31);
+		lblDatosDeMascotas.setBounds(10, 21, 209, 31);
 		panel_1.add(lblDatosDeMascotas);
 		
 		JButton btnEditar = new JButton("Editar");
-		btnEditar.setBounds(600, 155, 135, 72);
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tablaMascotas.getRowCount() > 0) {//Controlar que la lista no este vacia (Si es mayor a 0 es porque hay filas y no esta vacia)
+					if(tablaMascotas.getSelectedRow() != -1) { //Controlar si eligio una fila (-1 significa nada seleccionado)
+						int numCliente = Integer.parseInt(String.valueOf(tablaMascotas.getValueAt(tablaMascotas.getSelectedRow(), 0))); //Explicacion abajo
+						//Traer y asignar en num de cliente el valor de la tabla mascotas que este en la columna 0 de la fila seleccionada 
+						
+						//editar mascota
+						ModificarDatos pantallaModif = new ModificarDatos(numCliente);
+						pantallaModif.setVisible(true);
+						pantallaModif.setLocationRelativeTo(null);
+						
+						 
+					}else {
+						mostrarMensaje("No seleccionó ninguna mascota", "Error", "Error al eliminar");
+					}
+				}else {
+					mostrarMensaje("No hay nada en la tabla", "Error", "Error al eliminar");
+				}
+			}
+		});
+		btnEditar.setBackground(new Color(255, 255, 255));
+		btnEditar.setBounds(823, 151, 135, 72);
 		panel_1.add(btnEditar);
 		btnEditar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBackground(new Color(255, 255, 255));
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -117,7 +140,7 @@ public class VerDatos extends JFrame {
 		
 		
 		btnEliminar.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnEliminar.setBounds(600, 49, 135, 72);
+		btnEliminar.setBounds(823, 53, 135, 72);
 		panel_1.add(btnEliminar);
 
 	}
