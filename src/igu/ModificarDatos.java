@@ -44,12 +44,14 @@ public class ModificarDatos extends JFrame {
 	
 	Controladora control = new Controladora();
 	int numCliente;
+	Mascota masco;
+	private JTextArea txtObservaciones;
+	private JComboBox cmbAlergico;
+	private JComboBox cmbAtEsp;
 	
 	public ModificarDatos(int numCliente) {
 		
 		this.numCliente = numCliente;
-		
-		cargarDatos(numCliente);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 851, 549);
@@ -99,11 +101,11 @@ public class ModificarDatos extends JFrame {
 		panel.add(lblNewLabel_1_5);
 		
 		JLabel lblNewLabel_1_6 = new JLabel("Cel. dueño:");
-		lblNewLabel_1_6.setBounds(10, 331, 140, 14);
+		lblNewLabel_1_6.setBounds(10, 304, 140, 14);
 		panel.add(lblNewLabel_1_6);
 		
 		JLabel lblNewLabel_1_7 = new JLabel("Observaciones:");
-		lblNewLabel_1_7.setBounds(10, 388, 140, 14);
+		lblNewLabel_1_7.setBounds(10, 335, 140, 14);
 		panel.add(lblNewLabel_1_7);
 		
 		txtNombre = new JTextField();
@@ -128,19 +130,19 @@ public class ModificarDatos extends JFrame {
 		
 		txtCelDuenio = new JTextField();
 		txtCelDuenio.setColumns(10);
-		txtCelDuenio.setBounds(102, 328, 371, 20);
+		txtCelDuenio.setBounds(102, 304, 371, 20);
 		panel.add(txtCelDuenio);
 		
-		JTextArea txtObservaciones = new JTextArea();
-		txtObservaciones.setBounds(104, 383, 369, 91);
+		txtObservaciones = new JTextArea();
+		txtObservaciones.setBounds(102, 335, 369, 118);
 		panel.add(txtObservaciones);
 		
-		JComboBox cmbAlergico = new JComboBox();
+		cmbAlergico = new JComboBox();
 		cmbAlergico.setModel(new DefaultComboBoxModel(new String[] {"-", "SI", "NO"}));
 		cmbAlergico.setBounds(181, 183, 292, 22);
 		panel.add(cmbAlergico);
 		
-		JComboBox cmbAtEsp = new JComboBox();
+		cmbAtEsp = new JComboBox();
 		cmbAtEsp.setModel(new DefaultComboBoxModel(new String[] {"-", "SI", "NO"}));
 		cmbAtEsp.setBounds(180, 225, 293, 22);
 		panel.add(cmbAtEsp);
@@ -172,39 +174,75 @@ public class ModificarDatos extends JFrame {
 				String raza = txtRaza.getText();
 				String color = txtColor.getText();
 				String observaciones = txtObservaciones.getText();
-				
 				String alergico = (String) cmbAlergico.getSelectedItem(); //Se añade el casteo a String (String)
 				String atEsp = (String) cmbAtEsp.getSelectedItem();
 				
 				String nomDuenio = txtNomDuenio.getText();
 				String celDuenio = txtCelDuenio.getText();
 				
-				control.guardar(nombreMasco, raza, color, observaciones, alergico, atEsp, nomDuenio, celDuenio);
+				control.modificarMascota(masco, nombreMasco, raza, color, observaciones, alergico, atEsp, nomDuenio, celDuenio);
 				
-				JOptionPane optionPane = new JOptionPane("Datos guardados correctamente.");
-				optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
-				JDialog dialog = optionPane.createDialog("Guardado exitoso");
-				dialog.setAlwaysOnTop(true);
-				dialog.setVisible(true);
+				//Mostrar mensaje
+				mostrarMensaje("Edicion exitosa.", "Info", "Edicion correcta");
 				
+				//Mostrar tabla con datos actualizados
+				VerDatos pantalla = new VerDatos();
+				pantalla.setVisible(true);
+				pantalla.setLocationRelativeTo(null);
+				
+				//Cerrar la ventana al terminar de modificar
+				dispose();
+				
+
 			} 
 		});
 		btnGuardar.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnGuardar.setBounds(525, 405, 224, 41);
 		panel.add(btnGuardar);
-
+		
+		cargarDatos(numCliente);
 	}
 
-	private void cargarDatos(int numCliente2) {
-		Mascota masco = control.traerMascota(numCliente2);
+	private void cargarDatos(int numCli) {
+		this.masco = control.traerMascota(numCli);
 		
 		txtNombre.setText(masco.getNombreMascota());
 		txtRaza.setText(masco.getRaza());
 		txtColor.setText(masco.getColor());
 		txtNomDuenio.setText(masco.getUnDuenio().getNombre());
 		txtCelDuenio.setText(masco.getUnDuenio().getCelDuenio());
-		txtObservaciones
+		txtObservaciones.setText(masco.getObservaciones());
+		
+		if(masco.getAlergico().equals("SI")) {
+			cmbAlergico.setSelectedIndex(1); // 1 = Primero opcion. 0 es el guion.
+		}else {
+			if(masco.getAlergico().equals("NO")) {
+			cmbAlergico.setSelectedIndex(2);
+			}
+		}
+		
+		if(masco.getAtEsp().equals("SI")) {
+			cmbAtEsp.setSelectedIndex(1);
+		}else {
+			if(masco.getAtEsp().equals("NO")) {
+			cmbAtEsp.setSelectedIndex(2);
+			}
+		}	
+	}
+	
+	public void mostrarMensaje(String mensaje, String tipo, String titulo) {
+		JOptionPane optionPane = new JOptionPane(mensaje);
+		if(tipo.equals("Info")) { //Elegimos distintos tipos de error
+		optionPane.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+		}
+		else {
+			if(tipo.equals("Error")) {
+				optionPane.setMessageType(JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		JDialog dialog = optionPane.createDialog(titulo);
+		dialog.setAlwaysOnTop(true);
+		dialog.setVisible(true);
 		
 	}
-
 }

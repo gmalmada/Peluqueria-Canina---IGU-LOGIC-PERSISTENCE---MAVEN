@@ -98,13 +98,16 @@ public class VerDatos extends JFrame {
 						pantallaModif.setVisible(true);
 						pantallaModif.setLocationRelativeTo(null);
 						
-						 
+						dispose();
+						
 					}else {
 						mostrarMensaje("No seleccionó ninguna mascota", "Error", "Error al eliminar");
 					}
 				}else {
 					mostrarMensaje("No hay nada en la tabla", "Error", "Error al eliminar");
 				}
+				
+				
 			}
 		});
 		btnEditar.setBackground(new Color(255, 255, 255));

@@ -29,7 +29,34 @@ public class ControladoraPersistencia {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
+	public Mascota traerMascota(int numCli) {
+		
+		return mascoJpa.findMascota(numCli);
+	}
+
+	public void modificarMascota(Mascota masco) {
+		
+		try {
+			mascoJpa.edit(masco);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public Duenio traerDuenio(int idDuenio) {
+		
+		return duenioJpa.findDuenio(idDuenio);
+	}
+
+	public void modificarDuenio(Duenio dueno) {
+		try {
+			duenioJpa.edit(dueno);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }
