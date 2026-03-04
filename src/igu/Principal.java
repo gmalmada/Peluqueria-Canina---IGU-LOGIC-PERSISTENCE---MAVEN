@@ -76,6 +76,11 @@ public class Principal extends JFrame {
 		panel_1.add(btnVerDatos);
 		
 		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnSalir.setBounds(22, 379, 371, 58);
 		panel_1.add(btnSalir);
